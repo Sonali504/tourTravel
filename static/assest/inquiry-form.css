@@ -1,0 +1,103 @@
+nav {
+    border-bottom: 2px solid #000; /* Example: black border, adjust color as needed */
+}
+
+.inquiry-form-container {
+    display: flex;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 20px;
+    flex-wrap: wrap; /* Allow wrapping for small screens */
+    margin: 20px auto; /* Add margin to center and give space around the container */
+    max-width: 1000px;
+    min-height: 600px; /* Limit the max-height for larger screens */
+    height: 600px; /* Ensure both image and form take equal height */
+}
+
+.inquiry-form-image {
+    flex: 1;
+    padding-right: 20px;
+    max-width: 50%; /* Limit the width of the image container */
+    display: flex; /* To allow full height control */
+    align-items: center; /* Vertically center the image if needed */
+}
+
+.inquiry-form-image img {
+    width: 100%; /* Make sure the image takes up full width of its container */
+    height: 100%; /* Make the image fill the height of its container */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.inquiry-form {
+    flex: 1;
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the form content vertically */
+    padding-right: 20px; /* Add space on the right */
+}
+
+.inquiry-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 20px; /* Add some space at the top */
+}
+
+.inquiry-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; /* Evenly space the form elements */
+    gap: 15px; /* Add gap between form elements */
+}
+
+.inquiry-form form button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.inquiry-form form button:hover {
+    background-color: #0056b3;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+    .inquiry-form-container {
+        flex-direction: column; /* Stack the image and form vertically */
+        padding: 10px; /* Reduce padding */
+        margin: 10px; /* Add space around the container */
+    }
+
+    .inquiry-form-image {
+        flex: none; /* Allow the image to take full width */
+        padding-right: 0;
+        margin-bottom: 20px; /* Add space below the image */
+        max-width: 100%; /* Ensure the image takes full width on small screens */
+        height: 300px; /* Set height for mobile screens */
+    }
+
+    .inquiry-form {
+        flex: none;
+        padding-left: 0;
+        border-left: none; /* Remove the border on smaller screens */
+        max-width: 100%; /* Allow the form to take full width on small screens */
+        padding-right: 10px; /* Reduce right padding for mobile */
+    }
+
+    .inquiry-form h1 {
+        font-size: 24px; /* Adjust heading size for smaller screens */
+    }
+
+    .inquiry-form form button {
+        font-size: 14px; /* Adjust button text size for smaller screens */
+    }
+}
