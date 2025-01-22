@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %} my-cart {% endblock %}
+
+{% block content %}
+           <div class="container mt-5 pt-5 ">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <h4>My Cart</h4>
+                    <table class="table table-responsive pt-5">
+                        <thead>
+                            <tr>
+                                <th>Sr No.</th>
+                                <th>Product</th>
+                                <th>Rate</th>
+                                <th>Quantity</th>
+                                <th>Sub Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cp in cart.cartproduct_set.all %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ cp.product.title }}</td>
+                                <td>Rs. {{ cp.rate }}</td>
+                                <td>{{ cp.quantity }}</td>
+                                <td>Rs. {{ cp.sub_total }}</td>
+                                <td class="d-flex justify-content-between pt-5">
+                                    <a href="{% url 'ecomapp:managecart' cp.id %}?action=inc" class="btn btn-primary btn-sm"> + </a>
+                                    <a href="{% url 'ecomapp:managecart' cp.id %}?action=dcr" class="btn btn-warning btn-sm"> - </a>
+                                    <a href="{% url 'ecomapp:managecart' cp.id %}?action=rmv" class="btn btn-danger btn-sm"> x </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <th colspan="4" class="text-right">Total</th>
+                                <th>Rs. {{ cart.total }}</th>
+                                {% if cart.cartproduct_set.all %}
+                                <th><a href="{% url 'ecomapp:emptycart' %}" class="text-decoration-none ">Empty Cart</a></th>
+                                {% endif %}
+                            </tr>
+                            {% if cart.cartproduct_set.all %}
+                            <tr>
+                                <td colspan="6" class="text-center p-3 ">
+                                    <a class="btn btn-primary" href="{% url 'ecomapp:checkout' %}">Checkout</a>
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+      </div>
+
+{% endblock %}
