@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} home {% endblock %}
+{% block content %}
+  <style>
+
+    /* Section Title */
+    .explore-title {
+      font-family: 'Poppins', Arial, sans-serif;
+      color: #333;
+      font-size: 1.8rem;
+      color: #2d3436;
+      text-align: center;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      
+      padding-top:50px;
+    }
+
+    /* Main Heading */
+    .explore-heading {
+      font-size: 2.5rem;
+      text-align: center;
+      font-weight: 800;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      margin-top:50px;
+    }
+
+    /* Card Grid */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    /* Card Wrapper */
+    .explore-card-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Explore Card */
+    .explore-card {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .explore-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Card Image */
+    .explore-card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    /* Card Content */
+    .explore-card-content {
+      padding: 15px;
+      text-align: center;
+    }
+
+    /* Card Header */
+    .explore-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .explore-location {
+      color: #3498db;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .explore-rating-badge {
+      background: #f1c40f;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+    }
+
+    /* Card Title */
+    .explore-card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #2d3436;
+      margin: 10px 0;
+      text-transform: uppercase;
+      
+    }
+
+    /* Card Description */
+    .explore-card-description {
+      font-size: 1rem;
+      color: #636e72;
+      margin-bottom: 15px;
+    }
+
+    /* Card Price */
+    .explore-card-price {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #1e272e;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+      .explore-heading {
+          font-size: 2rem;
+          margin-top:80px;
+      }
+
+      .explore-title {
+          font-size: 1.5rem;
+      }
+
+      .explore-card {
+          margin-bottom: 15px;
+      }
+    }
+    /* Book Now Button */
+    .explore-book-link {
+      text-decoration: none;
+    }
+
+    .explore-book-btn {
+      display: inline-block;
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-top: 15px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .explore-book-btn:hover {
+      background-color: #2980b9;
+      transform: translateY(-3px);
+    }
+
+    .explore-book-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+  </style>
+
+  <div class="explore-section">
+    <div class="explore-container">
+        <h1 class="explore-heading">Unforgettable Journeys Await.</h1>
+        <div class="explore-grid">
+            {% for tour in tours %}
+                <div class="explore-card-wrapper">
+                    <div class="explore-card">
+                        <a href="{% url 'tour:tour_detail' tour.id %}">
+                            {% if tour.image %}
+                                <img src="{{ tour.image.url }}" class="explore-card-image" alt="{{ tour.tour_name }}">
+                            {% else %}
+                                <img src="{% static 'images/default.jpg' %}" class="explore-card-image" alt="Default Image">
+                            {% endif %}
+                        </a>
+                        <div class="explore-card-content">
+                            <div class="explore-card-header">
+                                <p class="explore-location">{{ tour.location|upper }}</p>
+                                <span class="explore-rating-badge">★★★★★</span>
+                            </div>
+                            <h4 class="explore-card-title">{{ tour.tour_name }}</h4>
+                            <p class="explore-card-description">{{ tour.description|truncatewords:20 }}</p>
+                            <p class="explore-card-price"><strong>Price:</strong> Rs. {{ tour.price }}</p>
+                            <a href="{% url 'tour:book_tour' tour.id %}" class="explore-book-link">
+                                <button class="explore-book-btn">Book Now</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+
+
+{% endblock %}

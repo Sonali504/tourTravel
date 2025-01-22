@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Payment Gateway {% endblock %}
+{% block content %}
+    <style>
+        /* Main Container Styling */
+        .payment-success-container {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f9fafb;
+            color: #333;
+            text-align: center;
+        }
+
+        .payment-success-box {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .payment-success-box h1 {
+            color: #28a745;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            
+        }
+
+        .payment-success-box p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn-primary {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Payment Form Styling */
+        .payment-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            padding: 40px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 0 auto;
+        }
+
+        .payment-form-box {
+            width: 100%;
+        }
+
+        .payment-form-box h1 {
+            color: #333;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 25px;
+            text-transform:uppercase;
+            font-weight:800;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+        .form-field label {
+            display: block;
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .form-field input:focus,
+        .form-field select:focus {
+            border-color: #4caf50;
+        }
+
+        .payment-summary {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .payment-summary p {
+            font-size: 1rem;
+            margin: 8px 0;
+        }
+
+        .btn-payment {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius:25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform:uppercase;
+            font-weight:800;
+        }
+
+        .btn-payment:hover {
+            background-color: #45a049;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .payment-form-container {
+                padding: 20px;
+            }
+
+            .payment-form-box h1 {
+                font-size: 1.6rem;
+            }
+
+            .form-field input,
+            .form-field select {
+                font-size: 0.9rem;
+            }
+
+            .btn-payment {
+                font-size: 1rem;
+            }
+
+            .payment-success-box h1 {
+                font-size: 1.5rem;
+            }
+
+            .payment-success-box p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+
+<!-- Success Message Section -->
+{% comment %} <div class="payment-success-container">
+    <div class="payment-success-box">
+        <h1>Booking Successful!</h1>
+        <p>Your booking for the {{ tour.tour_name }} has been confirmed. We'll send you more details soon.</p>
+        <a href="/" class="btn-primary">Back to Homepage</a>
+    </div>
+</div> {% endcomment %}
+
+    <!-- Payment Form Section -->
+    <div class="payment-form-container">
+        <div class="payment-form-box">
+            <h1>Payment Details</h1>
+            <form action="#" method="POST">
+                <!-- Cardholder Information -->
+                <div class="form-field">
+                    <label for="card-name">Cardholder Name</label>
+                    <input type="text" id="card-name" name="card_name" required placeholder="Enter your name">
+                </div>
+
+                <div class="form-field">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card_number" required placeholder="Enter your card number" maxlength="16">
+                </div>
+
+                <div class="form-field">
+                    <label for="expiry-date">Expiration Date</label>
+                    <input type="month" id="expiry-date" name="expiry_date" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" required maxlength="3" placeholder="Enter CVV">
+                </div>
+
+                <!-- Billing Information -->
+                <div class="form-field">
+                    <label for="billing-address">Billing Address</label>
+                    <input type="text" id="billing-address" name="billing_address" required placeholder="Enter billing address">
+                </div>
+
+                <div class="form-field">
+                    <label for="country">Country</label>
+                    <select id="country" name="country" required>
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="India">India</option>
+                    </select>
+                </div>
+
+                <!-- Payment Summary -->
+                <div class="payment-summary">
+                    <p><strong>Order Summary</strong></p>
+                    <p>Product: Premium Tour Package</p>
+                    <p>Total: Rs.</p>
+                </div>
+
+                <!-- Submit Payment Button -->
+                <button type="submit" class="btn-payment pt">Pay Now</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

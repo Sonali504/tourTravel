@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} home {% endblock %}
+{% block content %}
+    <style>
+        /* Container and Row Styles */
+        .registration-container {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .registration-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .registration-col {
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .registration-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 15px;
+            text-transform:uppercase;
+            font-weight:800;
+        }
+
+        .registration-divider {
+            width: 50px;
+            height: 3px;
+            background-color: #28a745;
+            margin: 20px auto;
+        }
+
+        .registration-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button.btn-register {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            text-transform:uppercase;
+        }
+
+        button.btn-register:hover {
+            background-color: #218838;
+            color:white;
+        }
+
+        .login-prompt {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .registration-title {
+                font-size: 1.8em;
+            }
+
+            button.btn-register {
+                width: 100%;
+                padding: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .registration-title {
+                font-size: 1.6em;
+            }
+
+            .registration-col {
+                padding: 15px;
+            }
+
+            button.btn-register {
+                padding: 16px;
+            }
+        }
+
+    </style>
+
+    <div class="registration-container">
+        <div class="registration-row">
+            <div class="registration-col">
+                <h3 class="registration-title">Registration</h3>
+                <hr class="registration-divider">
+                <form action="" method="post" class="registration-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-register">Register</button>
+                </form>
+                <p class="login-prompt">Already have an account? <a href="{% url 'tour:customerlogin' %}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+{% endblock %}

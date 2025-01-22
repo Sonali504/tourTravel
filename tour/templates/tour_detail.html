@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Home {% endblock %}
+{% block content %}
+  <style>
+    /* Main Container */
+    .tour-container {
+      font-family: 'Poppins', Arial, sans-serif;
+      background-color: #fff;
+      color: #333;
+      max-width: 1200px; /* Wider container for larger screens */
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      text-align: center;
+    }
+
+    /* Hover effect on container */
+    .tour-container:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Title styling */
+    .tour-title {
+      font-size: 3rem; /* Larger title for wider screens */
+      color: #1e272e;
+      text-transform: uppercase;
+      font-weight: 900;
+      margin-bottom: 30px;
+      letter-spacing: 1.5px;
+    }
+
+    /* Tour image styling */
+    .tour-image {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 4px solid #3498db;
+      margin-bottom: 30px;
+    }
+
+    /* Styled Description */
+    .tour-description {
+      font-size: 1.4rem; /* Larger text size */
+      color: #636e72;
+      line-height: 1.8;
+      margin: 20px 0;
+      padding: 0 20px;
+      text-align: justify; /* Align text to both sides */
+      font-style: italic; /* Italicize description for emphasis */
+    }
+
+    /* Price styling */
+    .tour-price {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #28a745;
+      margin: 20px 0;
+    }
+
+    /* Button styling */
+    .book-link {
+      text-decoration: none;
+    }
+
+    .btn-pri {
+      background: #3498db;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-pri:hover {
+      background: #2ecc71;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .tour-title {
+        font-size: 2.5rem;
+      }
+
+      .tour-description {
+        font-size: 1.2rem;
+      }
+
+      .tour-price {
+        font-size: 1.6rem;
+      }
+
+      .btn-pri {
+        font-size: 1.1rem;
+        padding: 12px 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tour-container {
+        padding: 20px;
+      }
+
+      .tour-title {
+        font-size: 1.8rem;
+      }
+
+      .btn-pri {
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px;
+      }
+    }
+  </style>
+
+  <div class="tour-container">
+    <h1 class="tour-title">{{ tour.tour_name }}</h1>
+    {% if tour.image %}
+      <img src="{{ tour.image.url }}" alt="{{ tour.tour_name }}" class="tour-image">
+    {% endif %}
+    <p class="tour-description">{{ tour.description }}</p>
+    <p class="tour-price">Price: Rs.{{ tour.price }}</p>
+    <a href="{% url 'tour:book_tour' tour.id %}" class="book-link">
+      <button class="btn-pri">BOOK NOW</button>
+    </a>
+  </div>
+{% endblock %}

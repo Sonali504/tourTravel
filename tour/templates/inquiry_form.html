@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inquiry Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assest/home.css' %}">
+    <link rel="stylesheet" href="{% static 'assest/inquiry-form.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+    <style>
+       
+    </style>
+    {% comment %} NAV_BAR {% endcomment %}
+    <nav>
+        <div class="nav__header">
+            <div class="nav__logo">
+                <a href="{% url 'home' %}" class="logo">expressTravel</a>
+            </div>
+            <div class="nav__menu__btn" id="menu-btn">
+                <i class="ri-menu-line"></i>
+            </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="{% url 'tour_list' %}">TOUR</a></li>
+            <li><a href="#package">PACKAGE</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li><a href="{% url 'tour_list' %}">BOOK TRIP</a></li>
+
+        </ul>
+        <div class="nav__btns">
+            <a href="{% url 'tour_list' %}">
+                <button class="btn-btn">BOOK TRIP</button>
+            </a>
+            
+            <button class="btn-btn">JOIN US</button>
+        </div>
+        
+    </nav>
+
+    <div class= "form-form pt-5">
+        <div class="inquiry-form-container">
+            <div class="inquiry-form-image">
+                <img src="{% static 'images/inquiry.webp' %}" alt="Tour Image" />
+            </div>
+            <div class="inquiry-form">
+                <h1>Tour Inquiry</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Inquiry Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Success Message Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} FOOTER {% endcomment %}
+    <footer id="contact">
+        <div class="section__container footer__container">
+          <div class="footer__col">
+            <div class="footer__logo">
+              <a href="#" class="logo">expressTravel</a>
+            </div>
+            <p>
+              Explore the world with ease and excitement through our comprehensive
+              travel platform. Your journey begins here, where seamless planning
+              meets unforgettable experiences.
+            </p>
+            <ul class="footer__socials">
+              <li>
+                <a href="#"><i class="ri-facebook-fill"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="ri-instagram-line"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="ri-youtube-line"></i></a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>Quick Links</h4>
+            <ul class="footer__links">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Flights</a></li>
+              <li><a href="#">Hotels</a></li>
+              <li><a href="#">Cruise</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>Contact Us</h4>
+            <ul class="footer__links">
+              <li>
+                <a href="#">
+                  <span><i class="ri-phone-fill"></i></span> +91 9876543210
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span><i class="ri-record-mail-line"></i></span> info@skywings
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span><i class="ri-map-pin-2-fill"></i></span> New Delhi, India
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>Subscribe</h4>
+            <form action="/">
+              <input type="text" placeholder="Enter your email" />
+              <button class="btn">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer__bar">
+          Copyright © 2024 Web Design Mastery. All rights reserved.
+        </div>
+    </footer>
+    <!-- Add Bootstrap JS and script to trigger modal -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script>
+        // Show modal if there are messages
+        document.addEventListener("DOMContentLoaded", function() {
+            {% if messages %}
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            {% endif %}
+        });
+
+        const menuBtn = document.getElementById("menu-btn");
+        const navLinks = document.getElementById("nav-links");
+        const menuBtnIcon = menuBtn.querySelector("i");
+
+        menuBtn.addEventListener("click", (e) => {
+        navLinks.classList.toggle("open");
+
+        const isOpen = navLinks.classList.contains("open");
+        menuBtnIcon.setAttribute("class", isOpen ? "ri-close-line" : "ri-menu-line");
+        });
+
+        navLinks.addEventListener("click", (e) => {
+        navLinks.classList.remove("open");
+        menuBtnIcon.setAttribute("class", "ri-menu-line");
+        });
+
+        const scrollRevealOption = {
+        origin: "bottom",
+        distance: "50px",
+        duration: 1000,
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} home {% endblock %}
+{% block content %}
+    <style>
+        /* Container and Row Styles */
+        .login-container {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .login-col {
+            text-align: center;
+            width: 100%;
+            padding: 15px;
+            background-color: #f9f9f9;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .login-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 15px;
+            text-transform:uppercase;
+            font-weight:800;
+        }
+
+        .login-divider {
+            width: 50px;
+            height: 3px;
+            background-color: #007bff;
+            margin: 20px auto;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button.btn-submit {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            text-transform:uppercase;
+        }
+
+        button.btn-submit:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .forgot-password {
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .signup-prompt {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-title {
+                font-size: 1.8em;
+            }
+
+            button.btn-submit {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-title {
+                font-size: 1.6em;
+            }
+
+            .login-col {
+                padding: 10px;
+            }
+
+            button.btn-submit {
+                padding: 14px;
+            }
+        }
+    </style>
+
+    <div class="login-container">
+        <div class="login-row">
+            <div class="login-col">
+                <h3 class="login-title">Login</h3>
+                <hr class="login-divider">
+                <form action="" method="post" class="login-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-submit">Login</button>
+                    {% if error %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endif %}
+                    <p class="forgot-password">Forgot Password? <a href="{% url 'tour:forgetpassword' %}">Reset now</a></p>
+                    <p class="signup-prompt">Don't have an account? <a href="{% url 'tour:registration' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Register here</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
